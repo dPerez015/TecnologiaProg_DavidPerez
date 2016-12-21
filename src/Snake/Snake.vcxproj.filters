@@ -24,4 +24,9 @@
       <Filter>View</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="InputManager.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
