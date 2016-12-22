@@ -7,21 +7,26 @@
 
 #define InMan InputManager::Ins()
 
-/*To do: Insert a listing method, convert the header to singeltone, ue the maps and the queues to make it more eficient and
-*Change the Updating skeletone to make it better(now it is a shit)
-*/
-
 class InputManager {
 private:
-	bool onGoing = true;
-	bool arrowUp = false;
-	bool arrowDown = false;
-	bool arrowRight = false;
-	bool arrowLeft = false;
-	bool escPressed = false;
-	bool entPressed = false;
-private:
+	enum class StatesKey {
+		NO_PRESSED,
+		PRESSED,
+		PRESSING
+	};
+
+	bool outGame = false;
+	std::unordered_map<Uint32 ,StatesKey> inpValMap;
+	std::queue<StatesKey*> inpVal;
+
 	InputManager() = default;
+	InputManager(const InputManager &data) = delete;
+	InputManager &operator=(const InputManager &data) = delete;
+
+	template<Uint32 key, StatesKey val> bool IsCorrect() {
+		auto it = inpValMap.find(key);
+		return (it != inpValMap.end()) ? it->second == val: false;
+	}
 public:
 
 	//Singelton
@@ -30,37 +35,33 @@ public:
 		return IM;
 	}
 
-
-
 	void Updating(void) {
 		SDL_Event events;
-			while (SDL_PollEvent(&events) != 0) {
-				if (events.type == SDL_QUIT) {
-					onGoing == false;
-				}
-				else if (events.type == SDL_KEYDOWN) {
-					switch (events.key.keysym.sym) {
-					case SDLK_UP:
-						arrowUp = true;
-						break;
-					case SDLK_DOWN:
-						arrowDown = true;
-						break;
-					case SDLK_LEFT:
-						arrowLeft = true;
-						break;
-					case SDLK_RIGHT:
-						arrowRight = true;
-						break;
-					case SDLK_ESCAPE:
-						escPressed = true;
-						break;
-					case SDLK_KP_ENTER:
-						entPressed = true;
-						break;
-					}
-				}
+		while (SDL_PollEvent(&events) != 0) {
+			switch (events.type) {
+			case SDL_QUIT:
+				outGame = true;
+				break;
+			case SDL_KEYDOWN:
+				inpVal.push(&(inpValMap[events.key.keysym.sym] = StatesKey::PRESSED));
+				break;
+			case SDL_KEYUP:
+				inpVal.push(&(inpValMap[events.key.keysym.sym] = StatesKey::NO_PRESSED));
+				break;
 			}
 		}
+	}
+
+	inline bool stillThere(){
+		return outGame;
+	}
+
+	template<Uint32 key> bool KeyPressed() {
+		return IsCorrect<key, StatesKey::PRESSED>();
+	}
+
+	template<Uint32 key> bool KeyUnPressed() {
+		return IsCorrect<key, StatesKey::NO_PRESSED>();
+	}
 };
 
