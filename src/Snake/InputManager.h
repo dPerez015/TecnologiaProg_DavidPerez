@@ -9,23 +9,26 @@
 
 class InputManager {
 private:
-	enum class StatesKey {
+	//estados de las keys
+	enum class StatesKey{
 		NO_PRESSED,
 		PRESSED,
-		PRESSING
+		HOLD
 	};
-
+	//determinar si has salido del juego
 	bool outGame = false;
+	//mapa de las keys (las keys son la clave de las teclas y se guarda un estado)
 	std::unordered_map<Uint32 ,StatesKey> inpValMap;
+	//
 	std::queue<StatesKey*> inpVal;
-
+	//Singleton
 	InputManager() = default;
 	InputManager(const InputManager &data) = delete;
 	InputManager &operator=(const InputManager &data) = delete;
-
+	//le pasas un estado y te devuelve true si esta en ese, false si no. 
 	template<Uint32 key, StatesKey val> bool IsCorrect() {
 		auto it = inpValMap.find(key);
-		return (it != inpValMap.end()) ? it->second == val: false;
+		return (it != inpValMap.end()) ? it->second == val: false;//hace falta revision
 	}
 public:
 
@@ -34,7 +37,7 @@ public:
 		static InputManager IM;
 		return IM;
 	}
-
+	//Update del estado de las teclas
 	void Updating(void) {
 		SDL_Event events;
 		while (SDL_PollEvent(&events) != 0) {
