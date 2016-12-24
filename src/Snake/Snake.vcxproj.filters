@@ -25,6 +25,9 @@
     <ClInclude Include="GameEngine.h">
       <Filter>Controller</Filter>
     </ClInclude>
+    <ClInclude Include="ID.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
