@@ -30,6 +30,7 @@ private:
 		auto it = inpValMap.find(key);
 		return (it != inpValMap.end()) ? it->second == val: false;//hace falta revision
 	}
+
 public:
 
 	//Singelton
@@ -56,7 +57,7 @@ public:
 	}
 
 	inline bool stillThere(){
-		return outGame;
+		return !outGame;
 	}
 
 	template<Uint32 key> bool KeyPressed() {
