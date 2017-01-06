@@ -15,6 +15,9 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="prueba.cpp" />
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -33,6 +36,18 @@
       <Filter>View</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GridRect.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

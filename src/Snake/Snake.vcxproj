@@ -122,15 +122,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="prueba.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridRect.h" />
     <ClInclude Include="ID.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ResourceFiles.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

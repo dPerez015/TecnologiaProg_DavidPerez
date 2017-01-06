@@ -30,8 +30,7 @@ private:
 	//le pasas un estado y te devuelve true si esta en ese, false si no. 
 	template<Uint32 key, StatesKey val> bool IsCorrect() {
 		auto it = inpValMap.find(key);
-		return (it != inpValMap.end()) ? it->second == val: false;/*comprueba que no esta al final de la iteracion y despues comprueba si val es igual
-																  al valor de la key en la que esta, en el caso de que asi sea devuelbe false*/
+		return (it != inpValMap.end()) ? it->second == val: false;/*comprueba que no esta al final de la iteracion y despues comprueba si val es igual al valor de la key en la que esta, en el caso de que asi sea devuelbe false*/
 	}
 
 public:

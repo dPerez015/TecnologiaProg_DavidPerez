@@ -22,7 +22,7 @@ private:
 			myRenderer = SDL_CreateRenderer(W(), -1, SDL_RENDERER_ACCELERATED);
 			if (myRenderer == nullptr)throw SDL_GetError();
 			//Init rend color
-			if (SDL_SetRenderDrawColor(myRenderer, 0, 0, 0, 255) < 0)throw SDL_GetError();
+			if (SDL_SetRenderDrawColor(myRenderer, 20, 5, 168, 255) < 0)throw SDL_GetError();
 			//init png y jpg loading 
 			const int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG;
 			if (IMG_Init(imgFlags) != imgFlags)throw "Error al iniciar sdl_IMG";
@@ -37,19 +37,19 @@ public:
 	inline static Renderer &Instance() {
 		static Renderer rend;
 		return rend;
-
 	}
+
 	template <ObjectID Id>void loadTexture(std::string filename) {
 		try {
 			auto loadedImg = IMG_Load(RESOURCE_FILE(filename));//copia "../../res/"+ filename, lo pasa a string, i carga la imagen
 			if (loadedImg != nullptr) {
-				theImages.emplace(Id, SDL_CreateTextureFromSurface(myRenderer, loadedImg))
+				theImages.emplace(Id, SDL_CreateTextureFromSurface(myRenderer, loadedImg));
 			}
 
-			else throw ""
+			else throw "no se ha cargado bien la imagen";
 		}
 		catch (const char* msg) {
-			SDL_LogError()
+			SDL_LogError(SDL_LOG_CATEGORY_ERROR, "%s", msg);
 		}
 	}
 	void Push (SDL_Surface *surface, Transform transform) {

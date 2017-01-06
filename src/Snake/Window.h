@@ -2,8 +2,8 @@
 #include <SDL.h>
 #include <string>
 #include <iostream>
-#define W Window::Instance()
 
+#define W Window::Instance()
 class Window {
 	Window(std::string name, int screenWidth, int screenHeight) :m_name(name), m_screenWidth(screenWidth), m_screenHeight(screenHeight) {
 		try {

@@ -3,10 +3,12 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "InputManager.h"
+#include "ID.h"
 
 namespace GameEngine {//como solo son funciones lo podemos iniciar como namespace
 	void loadRes() {
 		//Cargar los archivos en el renderer;
+		R.loadTexture<ObjectID::SNAKE>("snake_spritesheet.jpeg");
 	}
 	void addScenes() {
 		//cargar las diferentes escenas
