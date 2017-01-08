@@ -111,3 +111,35 @@ cout << "colocao";
 cout << mymap['a'];
 return 0;
 }*/
+
+/*#include <XML\rapidxml_print.hpp>
+#include <XML\rapidxml_utils.hpp>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+void FilesXML(std::string &&filename) {
+	rapidxml::file<>xmlFile(filename.c_str());
+	rapidxml::xml_document<>doc;
+	doc.parse<0>(xmlFile.data());
+
+	//std::cout << "This is the first node: " << doc.first_node->name() << std::endl;
+	rapidxml::xml_node<> *rootNode = doc.first_node("Stadistics");
+	for (rapidxml::xml_node<> *nextNode = rootNode->first_node(); nextNode; nextNode = nextNode->next_sibling()) {
+
+		std::cout << nextNode->name() << ":" << std::endl;
+
+		for (rapidxml::xml_node<> *innerNxtNode = nextNode->first_node(); innerNxtNode; innerNxtNode = innerNxtNode->next_sibling()) {
+
+			std::cout << innerNxtNode->name() << ":" << innerNxtNode->value() << std::endl;
+
+		}
+	}
+}
+
+int main() {
+
+	FilesXML("../../res/GameStadistics.xml");
+	return 0;
+}*/

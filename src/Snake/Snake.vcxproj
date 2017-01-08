@@ -137,6 +137,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ResourceFiles.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

@@ -53,6 +53,9 @@
     <ClInclude Include="IOManager.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
