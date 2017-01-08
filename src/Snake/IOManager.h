@@ -6,9 +6,6 @@
 #include <fstream>
 #include <sstream>
 
-/*using namespace rapidxml;
-using namespace std;
-*/
 namespace IOManager {
 
 	void FilesXML(std::string &&filename) {
