@@ -26,9 +26,6 @@
     <ClInclude Include="GameEngine.h">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="ID.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceFiles.h">
       <Filter>Model</Filter>
     </ClInclude>
@@ -52,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="IOManager.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeEnums.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
