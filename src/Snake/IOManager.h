@@ -3,8 +3,6 @@
 #include "XML\rapidxml_utils.hpp"
 #include <vector>
 #include <iostream>
-#include <fstream>
-#include <sstream>
 
 namespace IOManager {
 
@@ -15,8 +13,8 @@ namespace IOManager {
 		//Convierte el XML en un vector
 		std::vector<char>buffer((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 		buffer.push_back('\0');
-
-		doc.parse<0>(&buffer[0]);//Parsing(Analisis) del contenido del fichero
+		//Parsing(Analisis) del contenido del fichero
+		doc.parse<0>(&buffer[0]);
 		//Variable con el primer nodo
 		rapidxml::xml_node<> *rootNode = doc.first_node("Stadistics");
 		//Imprime el contenido de XML
