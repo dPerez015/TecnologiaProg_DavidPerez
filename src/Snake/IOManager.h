@@ -15,7 +15,8 @@ namespace IOManager {
 		buffer.push_back('\0');
 		//Parsing(Analisis) del contenido del fichero
 		doc.parse<0>(&buffer[0]);
-		//Variable con el primer nodo
+
+		//Variable con el primer nodo
 		rapidxml::xml_node<> *rootNode = doc.first_node("Stadistics");
 		const char *orgValue;//Variable que obtiene el valor del nodo seleccionado
 		int toGetValue;//variable para return
