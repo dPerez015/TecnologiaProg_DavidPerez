@@ -8,7 +8,7 @@
 
 class Grid {
 public:
-	Grid(int numOfRows=0, int numOfColumns=0):tamX(numOfColumns),tamY(numOfRows) {//una vez tengamos el xml solo necesitare el nombre del archivo
+	Grid(int numOfRows=0, int numOfColumns=0):tamX(numOfColumns),tamY(numOfRows), foodValue(0) {//una vez tengamos el xml solo necesitare el nombre del archivo
 		//parte xML, coger el numero de columnas y filas
 
 		//inicializacion de la grid vacia
@@ -336,7 +336,7 @@ private:
 
 #pragma endregion
 #pragma region PRIV_VAR
-	int tamX, tamY;
+	int tamX, tamY, foodValue;
 	GridRect **theGrid;
 	struct Player {
 		std::pair<int,int> head;

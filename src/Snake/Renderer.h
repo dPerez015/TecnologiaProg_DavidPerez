@@ -16,10 +16,6 @@
 
 #define R Renderer::Instance()
 using namespace std::string_literals;
-struct SpriteCut{
-	SDL_Rect rect;
-	SDL_Point center;
-};
 
 class Renderer {
 private:
@@ -51,13 +47,11 @@ public:
 		return rend;
 	}
 	template <typeOfSquare type>void FillSpriteCuts(int x, int y, int w, int h) {
-		SpriteCut sCut;
-		sCut.rect.x = x;
-		sCut.rect.y = y;
-		sCut.rect.w = w;
-		sCut.rect.h = h;
-		sCut.center.x = sCut.rect.x + (sCut.rect.w / 2);
-		sCut.center.y = sCut.rect.y + (sCut.rect.h / 2);
+		SDL_Rect sCut;
+		sCut.x = x;
+		sCut.y = y;
+		sCut.w = w;
+		sCut.h = h;
 		
 		spriteSheetCuts.emplace(type,sCut);
 	}
@@ -82,12 +76,12 @@ public:
 			switch (gRect.type)
 			{
 			case typeOfSquare::BLOCK:
-				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::BLOCK], &spriteSheetCuts[gRect.type].rect, &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
+				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::BLOCK], &spriteSheetCuts[gRect.type], &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
 					throw "Problema al hacer push"s;
 				}
 				break;
 			default:
-				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::SNAKE_FOOD], &spriteSheetCuts[gRect.type].rect, &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
+				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::SNAKE_FOOD], &spriteSheetCuts[gRect.type], &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
 					throw "Problema al hacer push"s;
 				}
 				break;
@@ -107,7 +101,7 @@ public:
 	void Render(void) { SDL_RenderPresent(myRenderer);}
 private:
 	std::unordered_map<ObjectID, SDL_Texture*> theImages;
-	std::unordered_map<typeOfSquare, SpriteCut> spriteSheetCuts;
+	std::unordered_map<typeOfSquare, SDL_Rect> spriteSheetCuts;
 	std::unordered_map<direction, int> rotations;
 	SDL_Renderer* myRenderer;
 };
