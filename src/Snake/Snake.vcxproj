@@ -131,6 +131,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridRect.h" />
+    <ClInclude Include="LvlManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TypeEnums.h" />
     <ClInclude Include="IOManager.h" />

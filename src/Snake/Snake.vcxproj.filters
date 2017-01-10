@@ -59,6 +59,9 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Controller</Filter>
     </ClInclude>
+    <ClInclude Include="LvlManager.h">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
