@@ -2,12 +2,7 @@
 #include <utility>
 //#include "transform.h"
 #include <SDL.h>
-enum class typeOfSquare{
-	EMPTY, HEAD, BODY, TAIL, CURVE,FOOD
-};
-enum class direction {
-	UP, LEFT, DOWN, RIGHT, NONE
-};
+#include "TypeEnums.h"
 
 struct GridRect {
 	/*GridRect() = default;//necesario para la creacionde la grid (inicializacion de array 2D necesita un constructor por defecto);

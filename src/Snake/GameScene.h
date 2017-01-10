@@ -5,13 +5,14 @@
 
 class GameScene: Scene{
 public:
-	explicit GameScene();
+	explicit GameScene(dificulty);
 	~GameScene() override;
 	virtual void OnEntry(void) override;
 	virtual void OnExit(void)  override;
 	virtual void Update(void)  override;
 	virtual void Draw() override;
 private:
+	int numOfRows, numOfColums;
 	Grid m_grid;
-	
+	dificulty theDificulty;
 };

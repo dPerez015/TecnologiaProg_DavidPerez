@@ -18,7 +18,8 @@ class Window {
 			SDL_LogError(SDL_LOG_CATEGORY_ERROR, "%s", msg);
 			}
 		}
-
+	Window(const Window &rhs) = delete;
+	Window &operator=(const Window &rhs) = delete;
 public:
 	inline static Window &Instance(std::string name="", int screenWidth=0, int screenHeight=0) {//valores por defecto para poder llamar Instance() sin parametros
 		static Window window(name, screenWidth, screenHeight);
@@ -27,8 +28,8 @@ public:
 	 
 	~Window() {}
 	inline SDL_Window* operator()(void)const { return m_SDLWindow; }//sobreescrivimos el operador () para que nos devuelva directamente la SDL_Window
- 	inline int GetWidth(void)const { return m_screenWidth; }
-	inline int GetHeigth(void)const { return m_screenHeight; }
+ 	int GetWidth(void)const { return m_screenWidth; }
+	int GetHeigth(void)const { return m_screenHeight; }
 
 private:
 	SDL_Window *m_SDLWindow{ nullptr };
