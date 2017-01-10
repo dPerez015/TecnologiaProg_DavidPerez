@@ -36,14 +36,16 @@ private:
 		return (it != inpValMap.end()) ? it->second == val: false;/*comprueba que no esta al final de la iteracion y despues comprueba si val es igual al valor de la key en la que esta, en el caso de que asi sea devuelbe false*/
 	}
 
-	void emptyArrows() {
-		while (lastArrowPressed.size()!=0){
-			lastArrowPressed.pop();
-		}
-	}
+	
 public:
 	//usamos un stack para que si la ultima flecha pulsada no es valida y a pulsado una que si que lo es vaya hacia alli
 	std::stack<direction>lastArrowPressed;
+	//sirve para vaciar el stack de arrows una vez ya hemos cambiado la dir del player.
+	void emptyArrows() {
+		while (lastArrowPressed.size() != 0) {
+			lastArrowPressed.pop();
+		}
+	}
 	//Singelton
 	inline static InputManager &Ins() {
 		static InputManager IM;

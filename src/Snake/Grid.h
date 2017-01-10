@@ -8,7 +8,7 @@
 
 class Grid {
 public:
-	Grid(int numOfRows, int numOfColumns):tamX(numOfColumns),tamY(numOfRows) {//una vez tengamos el xml solo necesitare el nombre del archivo
+	Grid(int numOfRows=0, int numOfColumns=0):tamX(numOfColumns),tamY(numOfRows) {//una vez tengamos el xml solo necesitare el nombre del archivo
 		//parte xML, coger el numero de columnas y filas
 
 		//inicializacion de la grid vacia
@@ -21,7 +21,6 @@ public:
 		//srand para la creacion de la comida.
 		srand(time(NULL));
 	}
-	Grid() {}
 	~Grid() {}
 	void draw() {
 		for (int i = 0; i < tamX; i++) {
@@ -105,6 +104,7 @@ private:
 			}
 			else { 	InMan.lastArrowPressed.pop();}
 		}
+		InMan.emptyArrows();
 	}
 	bool canDirChange(direction newDir) {
 		switch (newDir) {
@@ -199,14 +199,14 @@ private:
 #pragma endregion
 		#pragma region DIR_RIGHT
 		case direction::RIGHT:
-			if (player.head.first - 1 >= 0) {//si no se va a salir del mapa
-				switch (theGrid[player.head.first - 1][player.head.second].type) {//hay algo raro en esa casilla?
+			if (player.head.first + 1 >= 0) {//si no se va a salir del mapa
+				switch (theGrid[player.head.first + 1][player.head.second].type) {//hay algo raro en esa casilla?
 				case typeOfSquare::EMPTY://si no hay nada
 					moveTail();
-					moveHead(-1, 0);
+					moveHead(+1, 0);
 					break;
 				case typeOfSquare::FOOD://si hay comida
-					moveHead(-1, 0);
+					moveHead(+1, 0);
 					createFood();
 					break;
 				default://se muere
@@ -292,7 +292,7 @@ private:
 				theGrid[player.head.first][player.head.second].flip = SDL_FLIP_HORIZONTAL;
 			}
 			//asiganmos la direccion de salida 
-			theGrid[player.head.first + movesX][player.head.second + movesY].dir = player.dir;
+			theGrid[player.head.first][player.head.second].dir = player.dir;
 			//recolocamos la cabeza
 			theGrid[player.head.first + movesX][player.head.second + movesY].type = typeOfSquare::HEAD;
 			//"seteamos" su direccion de entrada, que nos sirve para saber si ha girado en esa casilla concreta
@@ -306,16 +306,16 @@ private:
 	bool hasToFlip(direction entrada) {
 		switch (player.dir){
 		case direction::UP:
-			return entrada == direction::LEFT ? false : true;
+			return entrada == direction::LEFT ? true : false;
 			break;
 		case direction::DOWN:
-			return entrada == direction::RIGHT ? false : true;
+			return entrada == direction::RIGHT ? true : false;
 			break;
 		case direction::LEFT:
-			return entrada == direction::DOWN ? false : true;
+			return entrada == direction::DOWN ? true : false;
 			break;
 		case direction::RIGHT:
-			return entrada == direction::UP ? false : true;
+			return entrada == direction::UP ? true : false;
 			break;
 		}
 	}

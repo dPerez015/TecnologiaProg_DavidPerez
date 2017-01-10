@@ -37,9 +37,9 @@ private:
 
 			//guardar las rotaciones
 			rotations.emplace(direction::UP,0);
-			rotations.emplace(direction::LEFT, 90);
+			rotations.emplace(direction::LEFT, 270);
 			rotations.emplace(direction::DOWN, 180);
-			rotations.emplace(direction::RIGHT,270);
+			rotations.emplace(direction::RIGHT,90);
 		}
 		catch (const std::string msg) {
 			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error",(msg+"\nSDL_Error:"+SDL_GetError()).c_str(),nullptr);
@@ -85,7 +85,6 @@ public:
 				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::BLOCK], &spriteSheetCuts[gRect.type].rect, &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
 					throw "Problema al hacer push"s;
 				}
-
 				break;
 			default:
 				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::SNAKE_FOOD], &spriteSheetCuts[gRect.type].rect, &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
