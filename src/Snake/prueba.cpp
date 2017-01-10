@@ -111,3 +111,12 @@ cout << "colocao";
 cout << mymap['a'];
 return 0;
 }*/
+
+//Prueba XML
+/*#include "IOManager.h"
+
+int main() {
+
+	IOManager::FilesXML("../../res/GameStadistics.xml");
+	return 0;
+}*/

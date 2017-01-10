@@ -50,6 +50,9 @@
     <ClInclude Include="IOManager.h">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
     <ClInclude Include="TypeEnums.h">
       <Filter>Model</Filter>
     </ClInclude>
