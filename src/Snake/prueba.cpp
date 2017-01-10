@@ -113,10 +113,13 @@ return 0;
 }*/
 
 //Prueba XML
-/*#include "IOManager.h"
-
+/*
+#include "IOManager.h"
+#include <iostream>
 int main() {
 
-	IOManager::FilesXML("../../res/GameStadistics.xml");
+	;
+	std::cout << "This the something in XML: " << IOManager::FilesXML("../../res/GameStadistics.xml", "numRows") << std::endl;
+	
 	return 0;
 }*/
