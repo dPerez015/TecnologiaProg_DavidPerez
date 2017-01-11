@@ -5,63 +5,105 @@
 #include "Renderer.h"
 #include "InputManager.h"
 #include <time.h>
+#include "LvlManager.h"
 
 class Grid {
 public:
-	Grid(int numOfRows=0, int numOfColumns=0):tamX(numOfColumns),tamY(numOfRows), foodValue(0) {//una vez tengamos el xml solo necesitare el nombre del archivo
-		//parte xML, coger el numero de columnas y filas
-
-		//inicializacion de la grid vacia
-		GridInit();
-		//creacion del nivel 
-
-		//inicializacion del player
-		playerInit();
-		
-		//srand para la creacion de la comida.
-		srand(time(NULL));
-	}
+	Grid() {}
 	~Grid() {}
 	void draw() {
 		for (int i = 0; i < tamX; i++) {
 			for (int j = 0; j < tamY;j++) {
 				R.Push(theGrid[i][j]);
+
+				SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
 			}
 		}
 	}
 	void update() {
 		if (player.isAlive) {
+			if (numFoodAppeared>numFood) {
+				currLvl++;
+				numFoodAppeared = 1;
+				numFood = numFood + (incrementFood*currLvl);
+				lvlLoad();
+				playerInit();
+			}
+			
 			//seleccionar la dir del player
 			setPlayerDir();
 			//mover al jugador
 			movePlayer();
 		}
 		else {
-		//morir
+			InMan.Kill();
 		}
 	}
 	
+
+	//inicializacion de la grid
+	void GridInit(dificulty &dif) {
+		//incicializacion de variables en funcion de la dificultad
+		switch (dif) {
+		case dificulty::EASY:
+			tamX = LvLM.defaultStats.numCol * 5;
+			tamY = LvLM.defaultStats.numRows * 5;
+			numFood = LvLM.defaultStats.numOfFood;
+			incrementFood = LvLM.defaultStats.incrementFood;
+			break;
+		case dificulty::MEDIUM:
+			tamX = LvLM.defaultStats.numCol * 2;
+			tamY = LvLM.defaultStats.numRows * 2;
+			numFood = LvLM.defaultStats.numOfFood * 2;
+			incrementFood = LvLM.defaultStats.incrementFood * 2;
+			break;
+		case dificulty::HARD:
+			tamX = LvLM.defaultStats.numCol ;
+			tamY = LvLM.defaultStats.numRows ;
+			numFood = LvLM.defaultStats.numOfFood*5;
+			incrementFood = LvLM.defaultStats.incrementFood*5;
+			break;
+		default:
+			break;
+		}
+		//nos situamos en el primer nivel.
+		currLvl = 0;
+		numFoodAppeared = 0;
+		//variables del player que no se reinician al perder una vida
+		player.punct = 0;
+		player.vidas = 3;
+		player.isAlive = true;
+		//creamos la grid vacia
+		gridCreation();
+		//cargamos el nivel
+		lvlLoad(/*dif*/);
+		//playerinit
+		playerInit();
+		//random numbers;
+		srand(time(NULL));
+
+		
+	}
 private:
 #pragma region PRIV_METHODS
-	//inicializacion de la grid
-	void GridInit() {
+	void gridCreation() {
 		//uso estas variables para que se entienda mejor el codigo
 		//porcentage de margen
 		float porCentX = 0.9;
 		float porCentY = 0.7;
 		//tamaño de los margenes (espacio que sobra/2)
 		int margenX = W.GetWidth()*(1 - porCentX) / 2;
-		int margenY = W.GetHeigth()*(1 - porCentY) / 2;
+		int margenY = W.GetHeigth()*(1 - porCentY)/2 ;
 		//tamaño de cada casilla(tamaño total/numero de casillas)
 		int cellWidth = W.GetWidth()*porCentX / tamX;
 		int cellHeight = W.GetHeigth()*porCentY / tamY;
-
+		//grid vacia
 		theGrid = new GridRect*[tamX];
 		for (int i = 0; i < tamX; i++) {
 			theGrid[i] = new GridRect[tamY];
 			for (int j = 0; j < tamY; j++) {
-				theGrid[i][j].rect.x = i*cellWidth + margenX;
-				theGrid[i][j].rect.y = j*cellHeight + margenY;
+				theGrid[i][j].rect.x = (i*cellWidth) + margenX;
+				theGrid[i][j].rect.y = (j*cellHeight) + margenY;
 				theGrid[i][j].rect.w = cellWidth;
 				theGrid[i][j].rect.h = cellHeight;
 				theGrid[i][j].type = typeOfSquare::EMPTY;
@@ -70,7 +112,21 @@ private:
 			}
 		}
 	}
+	void lvlLoad(/*dificulty &dif*/) {
+		for (int i = 0; i < tamX; i++) {
+			for (int j = 0; j < tamY; j++) {
+				//la inicializacion de niveles ha dejado de funcionar-.-"
+				/*if (LvLM.levels[dif][currLvl][i][j] ) {
+					theGrid[i][j].type = typeOfSquare::BLOCK;
+				}*/
+				theGrid[i][j].type = typeOfSquare::EMPTY;
+			}
+		}
+		//para enseñar la capacidad que tiene nuestro codigo de generar mapas diversos haciendo 
+		//uso de bloques modificaré manualmente 1 casilla, la de arriba a la izquierda.
+		theGrid[0][0].type = typeOfSquare::BLOCK;
 
+	}
 	//inicializacion del player en las coordenadas por defecto
 	void playerInit() {
 		theGrid[1][1].type = typeOfSquare::TAIL;
@@ -85,14 +141,11 @@ private:
 		player.head.second = 3;
 
 
-		theGrid[1][6].type = typeOfSquare::FOOD;
-		theGrid[1][6].dir = direction::UP;
+		createFood();
 
 
 		player.dir = direction::DOWN;
-		player.punct = 0;
-
-		player.isAlive = true;
+		
 	};
 	//direccion del player
 	void setPlayerDir() {
@@ -132,7 +185,7 @@ private:
 	void movePlayer() {
 		//comprovamos la direccion
 		switch (player.dir) {
-		#pragma region DIR_UP
+#pragma region DIR_UP
 		case direction::UP:
 			if (player.head.second - 1 >= 0) {//si no se va a salir del mapa
 				switch (theGrid[player.head.first][player.head.second - 1].type) {//hay algo raro en esa casilla?
@@ -147,17 +200,31 @@ private:
 					createFood();
 					break;
 				default://si es tail, body o curba (teoricamente tambien cabeza, pero no va a pasar)
-					player.isAlive = false;
+					player.vidas--;
+					if (player.vidas <= 0) {
+						player.isAlive = false;
+					}
+					lvlLoad();//deberia recargar el nivels, pero ya hemos dicho, no funciona
+					playerInit();
+
 					break;
 				}
 			}
-			else player.isAlive = false;
+			else {
+				player.vidas--;
+				if (player.vidas <= 0) {
+					player.isAlive = false;
+				}
+				lvlLoad();
+				playerInit();
+				break;
+			}
 
 			break;
 #pragma endregion 
-		#pragma region DIR_DOWN
+#pragma region DIR_DOWN
 		case direction::DOWN:
-			if (player.head.second + 1 >= 0) {//si no se va a salir del mapa
+			if (player.head.second + 1 < tamY) {//si no se va a salir del mapa
 				switch (theGrid[player.head.first][player.head.second + 1].type) {//hay algo raro en esa casilla?
 				case typeOfSquare::EMPTY://si no hay nada
 					moveTail();
@@ -168,15 +235,28 @@ private:
 					createFood();
 					break;
 				default://se muere
-					player.isAlive = false;
+					player.vidas--;
+					if (player.vidas <= 0) {
+						player.isAlive = false;
+					}
+					lvlLoad();
+					playerInit();
 					break;
 				}
 			}
-			else player.isAlive = false;
+			else {
+				player.vidas--;
+				if (player.vidas <= 0) {
+					player.isAlive = false;
+				}
+				lvlLoad();
+				playerInit();
+				break;
+			}
 
 			break;
-		#pragma endregion
-		#pragma region DIR_LEFT
+#pragma endregion
+#pragma region DIR_LEFT
 		case direction::LEFT:
 			if (player.head.first - 1 >= 0) {//si no se va a salir del mapa
 				switch (theGrid[player.head.first - 1][player.head.second].type) {//hay algo raro en esa casilla?
@@ -188,18 +268,31 @@ private:
 					moveHead(-1, 0);
 					createFood();
 					break;
-				default://se muere
-					player.isAlive = false;
+				default:
+					player.vidas--;
+					if (player.vidas <= 0) {
+						player.isAlive = false;
+					}
+					lvlLoad();
+					playerInit();
 					break;
 				}
 			}
-			else player.isAlive = false;
+			else {
+				player.vidas--;
+				if (player.vidas <= 0) {
+					player.isAlive = false;
+				}
+				lvlLoad();
+				playerInit();
+				break;
+			}
 
 			break;
 #pragma endregion
-		#pragma region DIR_RIGHT
+#pragma region DIR_RIGHT
 		case direction::RIGHT:
-			if (player.head.first + 1 >= 0) {//si no se va a salir del mapa
+			if (player.head.first + 1 < tamX) {//si no se va a salir del mapa
 				switch (theGrid[player.head.first + 1][player.head.second].type) {//hay algo raro en esa casilla?
 				case typeOfSquare::EMPTY://si no hay nada
 					moveTail();
@@ -210,12 +303,25 @@ private:
 					createFood();
 					break;
 				default://se muere
-					player.isAlive = false;
+					player.vidas--;
+					if (player.vidas <= 0) {
+						player.isAlive = false;
+					}
+					lvlLoad();
+					playerInit();
 					break;
 				}
 			}
-			else player.isAlive = false;
-			break;
+			else {
+				player.vidas--;
+				if (player.vidas <= 0) {
+					player.isAlive = false;
+				}
+				lvlLoad();
+				playerInit();
+				break;
+			}
+
 #pragma endregion
 		}
 	}
@@ -320,6 +426,8 @@ private:
 		}
 	}
 	void createFood() {
+		numFoodAppeared++;
+		player.punct += 100 * numFoodAppeared;
 		bool isCreated = false;
 		int x, y;
 		while (!isCreated) {
@@ -336,13 +444,16 @@ private:
 
 #pragma endregion
 #pragma region PRIV_VAR
-	int tamX, tamY, foodValue;
+	
+	int currLvl, numFoodAppeared;
+	int tamX, tamY, numFood,incrementFood;
 	GridRect **theGrid;
 	struct Player {
 		std::pair<int,int> head;
 		std::pair<int,int>tail;
 		direction dir;
 		int punct;
+		int vidas;
 		bool isAlive;
 	} player;
 #pragma endregion

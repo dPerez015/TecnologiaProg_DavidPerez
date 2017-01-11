@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 enum class SceneState {
 	NONE, //estado por defecto
 	RUNNING, //escena activa
@@ -22,4 +22,4 @@ public:
 protected:
 	SceneState currentState{ SceneState::NONE };//estado actual de la escena (por defecto NONE)
 };
-
+*/

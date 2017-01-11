@@ -9,7 +9,7 @@ namespace IOManager {
 	int FilesXML(std::string &&filename, std::string &&nodename) {
 
 		rapidxml::xml_document<> doc;//Crea el documento que contiendra el DOM tree para el fichero XML
-		std::ifstream file(filename);//Carga el fichero XML pertinente
+		std::ifstream file(RESOURCE_FILE(filename));//Carga el fichero XML pertinente
 		//Convierte el XML en un vector
 		std::vector<char>buffer((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 		buffer.push_back('\0');

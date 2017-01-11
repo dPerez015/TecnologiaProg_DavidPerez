@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Stadistics>
+	<DefaultStadistics>
+	
+		<numCol>10</numCol>
+		<numRows>10</numRows>
+		<time category = "seconds">60</time>
+		<numOfFood>5</numOfFood>
+		<incrementFood>2</incrementFood>
+		<speedSnake>1</speedSnake>
+	
+	</DefaultStadistics>
+	
+</Stadistics>

@@ -89,6 +89,7 @@ public:
 	inline bool stillThere(){
 		return !outGame;
 	}
+	inline void Kill() { outGame = true; }
 	//Comprueba que la tecla este apretada
 	template<Uint32 key> bool KeyPressed() {
 		return IsCorrect<key, StatesKey::PRESSED>();
