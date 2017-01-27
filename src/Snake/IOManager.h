@@ -2,7 +2,7 @@
 #include "XML\rapidxml.hpp"
 #include "XML\rapidxml_utils.hpp"
 #include <vector>
-#include <iostream>
+//#include <iostream>
 
 namespace IOManager {
 

@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #include "Scene.h"
 #include <typeindex>
 #include <unordered_map>
@@ -23,7 +23,7 @@ public:
 	}
 	template<class S> void SetCurScene(void) {
 		try {
-			static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene");
+			static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene, estaba seteando currscene");
 			if (m_curScene != nullptr)
 				m_curScene->OnExit(),
 				m_curScene->SetState<SceneState::SLEEP>();
@@ -38,17 +38,7 @@ public:
 		}
 	}
 	inline Scene *&GetCurScene(void) { return m_curScene; }
-	void loadStaditics() {
-		defaultStats.numCol = IOManager::FilesXML("GameStadistics.xml", "numCol");
-		defaultStats.numRows = IOManager::FilesXML("GameStadistics.xml", "numRows");
-		defaultStats.incrementFood = IOManager::FilesXML("GameStadistics.xml", "incrementFood");
-		defaultStats.numOfFood = IOManager::FilesXML("GameStadistics.xml", "numOfFood");
-		defaultStats.speed = IOManager::FilesXML("GameStadistics.xml", "speedSnake");
 
-	}
-	struct Stadistics {
-		int numCol, numRows, numOfFood, incrementFood, speed;
-	}defaultStats;
 private:
 	SceneManager() = default;
 	SceneManager(const SceneManager &rhs) = delete;
@@ -63,4 +53,4 @@ private:
 	
 	std::unordered_map<std::type_index, Scene*> m_scenes;	// Array of screens
 	Scene *m_curScene{ nullptr };							// Pointer to the current scene
-};*/
+};

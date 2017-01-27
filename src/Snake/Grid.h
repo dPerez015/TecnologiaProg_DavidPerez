@@ -16,7 +16,7 @@ public:
 			for (int j = 0; j < tamY;j++) {
 				R.Push(theGrid[i][j]);
 
-				SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
+				//SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
 			}
 		}
 	}

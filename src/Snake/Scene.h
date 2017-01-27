@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 enum class SceneState {
 	NONE, //estado por defecto
 	RUNNING, //escena activa
@@ -7,6 +7,7 @@ enum class SceneState {
 };
 
 class Scene{
+	friend class SceneManager;
 public:
 	explicit Scene()=default;//explicit elimina las conversiones implicitas y las inicializacion por copia
 	virtual ~Scene()=default;
@@ -22,4 +23,4 @@ public:
 protected:
 	SceneState currentState{ SceneState::NONE };//estado actual de la escena (por defecto NONE)
 };
-*/
+

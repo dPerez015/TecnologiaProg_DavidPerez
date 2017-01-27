@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+//#include <iostream>
 #include <unordered_map>
 #include <vector>
 #include "TypeEnums.h"
@@ -294,7 +294,9 @@ public:
 		int numCol, numRows, numOfFood, incrementFood;
 		float speed;
 	}defaultStats;
-
+	dificulty theDif;
+	float timeDelay;
+	float timeLastUpdate;
 	/*void InitMap() {
 		//Inserta los arrays en su lista correspondiente
 		imgLvlEasy.push_back(easyArr1);
