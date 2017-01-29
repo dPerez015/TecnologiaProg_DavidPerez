@@ -137,6 +137,25 @@ public:
 			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", (msg + "\nSDL_Error:" + SDL_GetError()).c_str(), nullptr);
 		}
 	}
+	void Push(SDL_Rect &rect, bool isFlipped){
+		try {
+			SDL_RendererFlip flip;
+			if (isFlipped) {
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+			else {
+				flip = SDL_FLIP_NONE;
+			}
+
+			if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::FLECHA], NULL, &rect, 0, NULL, flip) != 0) {
+				throw "problema al renderizar la flecha"s;
+			}
+		}
+		catch (const std::string &msg) {
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", (msg + "\nSDL_Error:" + SDL_GetError()).c_str(), nullptr);
+		}
+
+	}
 	inline SDL_Renderer* getRenderer(void) { return myRenderer; }
 	template<FontID id>TTF_Font* getFont() {
 		return theFonts[id];
