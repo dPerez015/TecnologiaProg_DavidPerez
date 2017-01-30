@@ -6,8 +6,8 @@
 #include "Renderer.h"
 #include "InputManager.h"
 #include "LvlManager.h"
-#include "SceneManager.h"
-#include "MenuScene.h"
+
+
 
 class Grid {
 public:
@@ -41,10 +41,7 @@ public:
 			//mover al jugador
 			movePlayer();
 		}
-		else {
-			//InMan.Kill();
-			SM.SetCurScene<MenuScene>();
-		}
+		
 	}
 	
 
@@ -93,7 +90,7 @@ public:
 	}
 	inline int getPunt() { return player.punct; }
 	inline int getVidas() { return player.vidas; }
-
+	inline bool isPAlive() { return player.isAlive; }
 private:
 #pragma region PRIV_METHODS
 	void gridCreation() {

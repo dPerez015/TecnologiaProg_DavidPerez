@@ -279,11 +279,12 @@ public:
 		return LvlMan;
 	}
 	void loadStaditics() {
-		defaultStats.numCol = IOManager::FilesXML("GameStadistics.xml", "numCol");
-		defaultStats.numRows = IOManager::FilesXML("GameStadistics.xml", "numRows");
-		defaultStats.incrementFood = IOManager::FilesXML("GameStadistics.xml", "incrementFood");
-		defaultStats.speed = IOManager::FilesXML("GameStadistics.xml", "speedSnake");
-		defaultStats.numOfFood = IOManager::FilesXML("GameStadistics.xml", "numOfFood");
+		defaultStats.numCol = IO.FilesXML("GameStadistics.xml", "numCol");
+		defaultStats.numRows = IO.FilesXML("GameStadistics.xml", "numRows");
+		defaultStats.incrementFood = IO.FilesXML("GameStadistics.xml", "incrementFood");
+		defaultStats.speed = IO.FilesXML("GameStadistics.xml", "speedSnake");
+		defaultStats.numOfFood = IO.FilesXML("GameStadistics.xml", "numOfFood");
+	
 	}
 	/*Implementacion de mapas predeterminados
 	std::vector<bool**> imgLvlEasy;//Lista que contiene los mapas en modo easy

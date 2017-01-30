@@ -3,11 +3,19 @@
 #include "XML\rapidxml_utils.hpp"
 #include <vector>
 //#include <iostream>
+#define IO IOManager::Instance()
 
-namespace IOManager {
+class IOManager {
+private:
+	IOManager() {}
 
-	int FilesXML(std::string &&filename, std::string &&nodename) {
-
+public:
+	inline static IOManager &Instance() {
+		static IOManager io;
+		return io;
+	}
+		int FilesXML(std::string &&filename, std::string &&nodename) {
+		
 		rapidxml::xml_document<> doc;//Crea el documento que contiendra el DOM tree para el fichero XML
 		std::ifstream file(RESOURCE_FILE(filename));//Carga el fichero XML pertinente
 		//Convierte el XML en un vector
@@ -15,7 +23,7 @@ namespace IOManager {
 		buffer.push_back('\0');
 		//Parsing(Analisis) del contenido del fichero
 		doc.parse<0>(&buffer[0]);
-
+		
 		//Variable con el primer nodo
 		rapidxml::xml_node<> *rootNode = doc.first_node("Stadistics");
 		const char *orgValue;//Variable que obtiene el valor del nodo seleccionado
@@ -28,5 +36,7 @@ namespace IOManager {
 			toGetValue = atoi(orgValue);
 			return toGetValue;
 			}
+		
 		}
-	}
+		
+};

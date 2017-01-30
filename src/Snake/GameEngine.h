@@ -42,7 +42,7 @@ namespace GameEngine {//como solo son funciones lo podemos iniciar como namespac
 		
 		LvLM.theDif = dificulty::MEDIUM;
 
-		SM.SetCurScene<GameScene>();
+		SM.SetCurScene<MenuScene>();
 		//Scene *&myCurScene(SM.GetCurScene());
 
 		bool isRunning = true;
