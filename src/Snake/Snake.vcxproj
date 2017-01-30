@@ -125,7 +125,6 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PruebaRanking.h" />
     <ClInclude Include="Ranking.h" />
     <ClInclude Include="botones.h" />
     <ClInclude Include="GameEngine.h" />

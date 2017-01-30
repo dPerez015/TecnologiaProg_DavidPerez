@@ -70,9 +70,6 @@
     <ClInclude Include="Ranking.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="PruebaRanking.h">
-      <Filter>Model</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
