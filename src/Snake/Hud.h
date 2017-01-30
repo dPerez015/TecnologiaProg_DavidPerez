@@ -25,8 +25,10 @@ public:
 		posPuntuation.y = W.GetHeigth()*0.02;
 		posPuntuation.w = W.GetWidth()*0.3;
 		posPuntuation.h = W.GetHeigth()*0.13;
-		puntuation = "0000";
+		puntuation = 0;
 
+
+		vidRes = 3;
 		//posicion de las vidas
 		for (int i = 0; i < 3; i++) {
 			vidas[i].type = typeOfSquare::HEART;
@@ -48,21 +50,27 @@ public:
 		//dibujamos lineas de la grid
 		SDL_RenderDrawLines(R.getRenderer(), esquinasGrid, 5);
 		//puntuacion
-		GUI::DrawTextSolid<FontID::ARCADE>(puntuation, posPuntuation);
+
+		GUI::DrawTextSolid<FontID::ARCADE>(std::to_string(puntuation), posPuntuation);
 		//vidas
 		DrawLives();
 	}
-
+	void update(int punt, int vidas) {
+		puntuation = punt;
+		vidRes = vidas;
+	}
 private:
 	void DrawLives() {
-		for (int i = 0; i < 3;i++) {
+		for (int i = 0; i < vidRes;i++) {
 			R.Push(vidas[i]);
 		}
 	}
 
+	
 	SDL_Point* esquinasGrid;
-
-	std::string puntuation;
+	int vidRes;
+	int puntuation;
+	//std::string puntuation;
 	SDL_Rect posPuntuation;
 
 	GridRect vidas[3];

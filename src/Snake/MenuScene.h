@@ -5,6 +5,8 @@
 #include "LvlManager.h"
 #include "InputManager.h"
 #include <iostream>
+#include "SceneManager.h"
+#include "GameScene.h"
 
 class MenuScene : public Scene {
 public:
@@ -39,9 +41,11 @@ public:
 		recTitulo.y = 5;
 
 		seleccion = 0;
-		selectDifBot.select();
+		playBot.select();
 	}
-	virtual void OnExit(void)  override{}
+	virtual void OnExit(void)  override{
+		LvLM.theDif = theDif;
+	}
 	virtual void Update(void)  override{
 		if (InMan.lastArrowPressed.size() != 0) {
 			moveSelection(InMan.lastArrowPressed.top());
@@ -49,7 +53,20 @@ public:
 		}
 		//mirar si se ha pulsado enter
 		if (InMan.KeyPressed<SDLK_RETURN>()) {
-			std::cout << "Enter Pulsado";
+			switch (seleccion){
+			case 0:
+				SM.SetCurScene<GameScene>();
+				break;
+			case 2:
+				//cargar ranking
+				break;
+			case 3:
+				InMan.Kill();
+				break;
+			default:
+				break;
+			}
+
 		}
 
 	}

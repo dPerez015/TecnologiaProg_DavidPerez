@@ -2,7 +2,7 @@
 
 int main(int argc, char* args[]) {
 	
-	GameEngine::Run("MyGame", 800, 600);
+	GameEngine::Run("MyGame", 1000, 1000);
 
 	return 0;
 }

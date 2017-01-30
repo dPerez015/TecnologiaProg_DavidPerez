@@ -1,22 +1,28 @@
 #pragma once
 #include <utility>
+#include <time.h>
 #include "GridRect.h"
 #include "Window.h"
 #include "Renderer.h"
 #include "InputManager.h"
-#include <time.h>
 #include "LvlManager.h"
+#include "SceneManager.h"
+#include "MenuScene.h"
 
 class Grid {
 public:
 	Grid() {}
-	~Grid() {}
+	~Grid() {
+		//delete[] theGrid;
+	}
 	void draw() {
 		for (int i = 0; i < tamX; i++) {
 			for (int j = 0; j < tamY;j++) {
 				R.Push(theGrid[i][j]);
-
-				//SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
+				SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
+				/*if (theGrid[i][j].type!=typeOfSquare::EMPTY) {
+					R.Render();
+				}*/
 			}
 		}
 	}
@@ -36,7 +42,8 @@ public:
 			movePlayer();
 		}
 		else {
-			InMan.Kill();
+			//InMan.Kill();
+			SM.SetCurScene<MenuScene>();
 		}
 	}
 	
@@ -84,6 +91,9 @@ public:
 
 		
 	}
+	inline int getPunt() { return player.punct; }
+	inline int getVidas() { return player.vidas; }
+
 private:
 #pragma region PRIV_METHODS
 	void gridCreation() {

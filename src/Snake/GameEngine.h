@@ -42,8 +42,8 @@ namespace GameEngine {//como solo son funciones lo podemos iniciar como namespac
 		
 		LvLM.theDif = dificulty::MEDIUM;
 
-		SM.SetCurScene<MenuScene>();
-		Scene *&myCurScene(SM.GetCurScene());
+		SM.SetCurScene<GameScene>();
+		//Scene *&myCurScene(SM.GetCurScene());
 
 		bool isRunning = true;
 		LvLM.timeLastUpdate = 0;
@@ -53,24 +53,15 @@ namespace GameEngine {//como solo son funciones lo podemos iniciar como namespac
 			LvLM.timeLastUpdate += TiMan.GetDeltaTime();//coge el tiempo que lleva en esta iteracion cuando porfin ejecuta el update
 			InMan.Updating();//actualiza los inputs
 			TiMan.Updating();
-			/*
-			if (LvLM.timeLastUpdate>LvLM.timeDelay) {//si el tiempo desde el ultimo update>el tiempo que prentendemos que haya de delay actualiza la grid
-				myCurScene->Update();
-				LvLM.timeLastUpdate -= LvLM.timeDelay;
-				
-			}*/
-			myCurScene->Update();
+			
+			SM.GetCurScene()->Update();
 			//DRAW
 			R.Clear();
 			//currScene.Draw();
-			myCurScene->Draw();
+			SM.GetCurScene()->Draw();
 			//theHud.draw();
 			//pintar objetos
 			R.Render();
 		}
 	}
-
-	
-	
-
 };
