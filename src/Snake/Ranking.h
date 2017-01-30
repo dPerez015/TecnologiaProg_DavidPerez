@@ -18,7 +18,7 @@ private:
 	BinaryFiles() {}
 	~BinaryFiles() {}
 public:
-	BinaryFiles &Instance() {
+	static BinaryFiles &Instance() {
 		static BinaryFiles bin;
 		return bin;
 	}
@@ -38,7 +38,7 @@ public:
 	void writeBin(std::string name, int score) {
 
 
-		std::ifstream readFile("../res/Ranking.bin", std::ios::binary);
+		std::ifstream readFile("../../res/Ranking.bin", std::ios::binary);
 		//En este for leemos el fichero binario ya escrito y les pasamos el contenido de este al array
 		for (int i = 0; i < 10; i++) {
 			std::getline(readFile, top10[i].name, '\0');
@@ -54,7 +54,7 @@ public:
 		//sort();//Llamada a la funcion que ordena el array
 		setNewRank(toIns);//Llamada a la funcion que pone al nuevo jugador en la posicion del array pertinente
 
-		std::ofstream writeFile("../res/Ranking.bin", std::ios::binary);
+		std::ofstream writeFile("../../res/Ranking.bin", std::ios::binary);
 		//Escribimos el array en el fichero binario
 		for (int i = 0; i < 10; i++) {
 			writeFile.write(top10[i].name.c_str(), top10[i].name.size());
@@ -66,6 +66,14 @@ public:
 	}
 	//Funcion que devuelbe un array con el contenido del fichero
 	HighScores readBin(int posicion) {
+		std::ifstream readFile("../../res/Ranking.bin", std::ios::binary);
+		//En este for leemos el fichero binario ya escrito y les pasamos el contenido de este al array
+		for (int i = 0; i < 10; i++) {
+			std::getline(readFile, top10[i].name, '\0');
+			readFile.read(reinterpret_cast<char*>(&top10[i].score), sizeof(top10[i].score));
+		}
+
+		readFile.close();
 		return top10[posicion];
 	}
 	

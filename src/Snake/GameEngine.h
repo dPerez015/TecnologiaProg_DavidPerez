@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "Grid.h"
 #include "LvlManager.h"
+#include "RankingScene.h"
 
 namespace GameEngine {//como solo son funciones lo podemos iniciar como namespace
 	void loadRes(void) {
@@ -29,9 +30,10 @@ namespace GameEngine {//como solo son funciones lo podemos iniciar como namespac
 		//cargar las diferentes escenas
 		SM.AddScene<GameScene>();
 		SM.AddScene<MenuScene>();
+		SM.AddScene<RankingScene>();
 	}
 	
-	void Run(std::string name, int screenWidth, int screenHeight) {
+	void Run(std::string name, int screenWidth, int screenHeight, std::string &pName) {
 
 		//INIT
 		Window::Instance(name, screenWidth, screenHeight);//init window
@@ -39,18 +41,17 @@ namespace GameEngine {//como solo son funciones lo podemos iniciar como namespac
 		loadRes();
 		addScenes();
 		LvLM.loadStaditics();
-		
+		LvLM.PlayerName = pName;
 		LvLM.theDif = dificulty::MEDIUM;
 
 		SM.SetCurScene<MenuScene>();
 		//Scene *&myCurScene(SM.GetCurScene());
 
-		bool isRunning = true;
+		
 		LvLM.timeLastUpdate = 0;
 		//GAME LOOP
-		while (isRunning&&InMan.stillThere()) {
+		while (InMan.stillThere()) {
 			//UPDATE
-			LvLM.timeLastUpdate += TiMan.GetDeltaTime();//coge el tiempo que lleva en esta iteracion cuando porfin ejecuta el update
 			InMan.Updating();//actualiza los inputs
 			TiMan.Updating();
 			

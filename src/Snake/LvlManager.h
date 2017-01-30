@@ -298,6 +298,7 @@ public:
 	dificulty theDif;
 	float timeDelay;
 	float timeLastUpdate;
+	std::string PlayerName;
 	/*void InitMap() {
 		//Inserta los arrays en su lista correspondiente
 		imgLvlEasy.push_back(easyArr1);

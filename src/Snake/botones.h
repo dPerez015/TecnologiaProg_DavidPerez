@@ -3,6 +3,7 @@
 #include <string>
 #include "Renderer.h"
 #include "GUI.h"
+#include "LvlManager.h"
 class Boton{
 public:
 	Boton() {}
@@ -46,7 +47,22 @@ protected:
 
 class deslizador:public Boton {
 	public:
-		void initDeslizador(int tamX, int tamY, int posX, int posY, std::string t) {
+		void initDeslizador(int tamX, int tamY, int posX, int posY ) {
+			std::string t;
+			switch (LvLM.theDif){
+			case dificulty::EASY:
+				t = "Difficulty  EASY";
+				break;
+			case dificulty::MEDIUM:
+				t = "Difficulty  MEDIUM";
+				break;
+			case dificulty::HARD:
+				t = "Difficulty  HARD";
+				break;
+			default:
+				break;
+			}
+
 			initBoton(tamX, tamY, posX, posY, t);
 			flechaD.h = tamY;
 			flechaI.h = tamY;

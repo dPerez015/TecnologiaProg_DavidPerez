@@ -13,8 +13,7 @@ void MenuScene::OnEntry(void) {
 	std::string text = "PLAY";
 	playBot.initBoton(tamX, tamY, posX, posY, text);
 	posY += tamY - 2;
-	text = "Difficulty  MEDIUM";
-	selectDifBot.initDeslizador(tamX, tamY, posX, posY, text);
+	selectDifBot.initDeslizador(tamX, tamY, posX, posY);
 	posY += tamY - 2;
 	text = "RANKING";
 	RankingBot.initBoton(tamX, tamY, posX, posY, text);
@@ -47,6 +46,7 @@ void MenuScene::Update(void) {
 			break;
 		case 2:
 			//cargar ranking
+			SM.SetCurScene<RankingScene>();
 			break;
 		case 3:
 			InMan.Kill();

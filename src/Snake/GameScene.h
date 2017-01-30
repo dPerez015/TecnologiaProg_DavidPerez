@@ -6,6 +6,8 @@
 #include "SceneManager.h"
 #include "LvlManager.h"
 #include "MenuScene.h"
+#include "Ranking.h"
+#include "TimeManager.h"
 
 class GameScene : public Scene{
 public:

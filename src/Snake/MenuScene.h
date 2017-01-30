@@ -2,11 +2,11 @@
 #include "Scene.h"
 #include "botones.h"
 #include "Window.h"
-//#include "LvlManager.h"
 #include "InputManager.h"
 #include <iostream>
 #include "SceneManager.h"
 #include "GameScene.h"
+#include "RankingScene.h"
 
 class MenuScene : public Scene {
 public:

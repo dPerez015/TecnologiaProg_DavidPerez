@@ -3,6 +3,7 @@
 #include "XML\rapidxml_utils.hpp"
 #include <vector>
 //#include <iostream>
+#include "ResourceFiles.h"
 #define IO IOManager::Instance()
 
 class IOManager {

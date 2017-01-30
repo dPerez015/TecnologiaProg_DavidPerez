@@ -25,10 +25,11 @@ void GameScene::OnEntry(void){
 }
 
 void GameScene::OnExit(void) {
-	//TODO
+	BinF.writeBin(LvLM.PlayerName,theGrid.getPunt());
 }
 
 void GameScene::Update(void) {
+	LvLM.timeLastUpdate += TiMan.GetDeltaTime();//coge el tiempo que lleva en esta iteracion cuando porfin ejecuta el update
 	if (LvLM.timeLastUpdate>LvLM.timeDelay) {//si el tiempo desde el ultimo update>el tiempo que prentendemos que haya de delay actualiza la grid
 		if (theGrid.isPAlive()) {
 			theGrid.update();

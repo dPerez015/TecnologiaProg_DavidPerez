@@ -19,7 +19,7 @@ public:
 		for (int i = 0; i < tamX; i++) {
 			for (int j = 0; j < tamY;j++) {
 				R.Push(theGrid[i][j]);
-				SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
+				//SDL_RenderDrawRect(R.getRenderer(), &theGrid[i][j].rect);
 				/*if (theGrid[i][j].type!=typeOfSquare::EMPTY) {
 					R.Render();
 				}*/
@@ -72,7 +72,7 @@ public:
 		}
 		//nos situamos en el primer nivel.
 		currLvl = 0;
-		numFoodAppeared = 0;
+		numFoodAppeared = 1;
 		//variables del player que no se reinician al perder una vida
 		player.punct = 0;
 		player.vidas = 3;
@@ -205,6 +205,7 @@ private:
 					moveHead(0, -1);
 					//creamos una nueva comida
 					createFood();
+					player.punct += 100 * numFoodAppeared;
 					break;
 				default://si es tail, body o curba (teoricamente tambien cabeza, pero no va a pasar)
 					player.vidas--;
@@ -240,6 +241,7 @@ private:
 				case typeOfSquare::FOOD://si hay comida
 					moveHead(0, 1);
 					createFood();
+					player.punct += 100 * numFoodAppeared;
 					break;
 				default://se muere
 					player.vidas--;
@@ -274,6 +276,7 @@ private:
 				case typeOfSquare::FOOD://si hay comida
 					moveHead(-1, 0);
 					createFood();
+					player.punct += 100 * numFoodAppeared;
 					break;
 				default:
 					player.vidas--;
@@ -308,6 +311,7 @@ private:
 				case typeOfSquare::FOOD://si hay comida
 					moveHead(+1, 0);
 					createFood();
+					player.punct += 100 * numFoodAppeared;
 					break;
 				default://se muere
 					player.vidas--;
@@ -434,7 +438,6 @@ private:
 	}
 	void createFood() {
 		numFoodAppeared++;
-		player.punct += 100 * numFoodAppeared;
 		bool isCreated = false;
 		int x, y;
 		while (!isCreated) {

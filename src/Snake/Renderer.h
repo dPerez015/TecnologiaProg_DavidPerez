@@ -130,7 +130,7 @@ public:
 					int tmp = gRect.rect.h;
 					gRect.rect.h = gRect.rect.w;
 					gRect.rect.w = tmp;
-					SDL_RenderDrawRect(myRenderer,&gRect.rect);
+				//	SDL_RenderDrawRect(myRenderer,&gRect.rect);
 				}
 				if (SDL_RenderCopyEx(myRenderer, theImages[ObjectID::SNAKE_FOOD], &spriteSheetCuts[gRect.type], &gRect.rect, rotations[gRect.dir], NULL, gRect.flip) != 0) {
 					throw "Problema al hacer push"s;

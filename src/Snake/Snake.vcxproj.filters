@@ -20,6 +20,9 @@
     <ClCompile Include="MenuScene.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RankingScene.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">

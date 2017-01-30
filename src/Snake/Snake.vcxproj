@@ -125,6 +125,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuScene.cpp" />
+    <ClCompile Include="RankingScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ranking.h" />
